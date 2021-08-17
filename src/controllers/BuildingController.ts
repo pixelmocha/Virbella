@@ -1,5 +1,6 @@
 import { Controller, Param, Get } from 'routing-controllers';
-import { Building } from '../models/buildings';
+import { BuildingDto } from '../dto/buildingDto';
+import { ElevatorDto } from '../dto/elevatorDto';
 import { BuildingRepository } from '../repositories/BuildingRepository';
 
 @Controller()
@@ -13,7 +14,9 @@ export class BuildingController {
    * @memberof BuildingController
    */
   @Get('/buildings')
-  async GetAll(): Promise<Building[]> {
+  async GetAll(): Promise<BuildingDto[]> {
+    const buildings = await this.repo.GetAll();
+
     return await this.repo.GetAll();
   }
 
@@ -24,7 +27,7 @@ export class BuildingController {
    * @memberof BuildingController
    */
   @Get('/buildings/:id')
-  async GetOne(@Param('id') id: number) {
+  async GetOne(@Param('id') id: number): Promise<BuildingDto>  {
     return await this.repo.Get(id);
   }
 
@@ -35,7 +38,7 @@ export class BuildingController {
    * @memberof BuildingController
    */
   @Get('/buildings/:id/elevators')
-  async GetElevators(@Param('id') id: number) {
+  async GetElevators(@Param('id') id: number): Promise<ElevatorDto[]>  {
     return await this.repo.GetElevators(id);
   }
 }

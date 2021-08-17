@@ -1,7 +1,7 @@
 import { Controller, Param, Get, Put } from 'routing-controllers';
 import { ElevatorRepository } from '../repositories/ElevatorRepository';
 import { DoorState } from '../models/elevator';
-import { ElevatorDto } from '../dto/elevator';
+import { ElevatorDto } from '../dto/elevatorDto';
 
 @Controller()
 export class ElevatorController {

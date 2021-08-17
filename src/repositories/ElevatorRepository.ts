@@ -1,19 +1,26 @@
 import axios from "axios";
 import { BadRequestError } from "routing-controllers";
-import { ElevatorDto } from "../dto/elevator";
+import { ElevatorDto } from "../dto/elevatorDto";
 import { DoorState, Elevator, Status } from "../models/elevator";
 import { BaseRepository } from "./BaseRepository";
 import { BuildingRepository } from "./BuildingRepository";
 
 export class ElevatorRepository extends BaseRepository {
-    private buildingRepo = new BuildingRepository();
+    private buildingRepo = new BuildingRepository;
+    private static instance: ElevatorRepository;
+    public static getInstance(): ElevatorRepository {
+        if (!ElevatorRepository.instance) {
+            ElevatorRepository.instance = new ElevatorRepository();
+        }
+        return ElevatorRepository.instance;
+    }
 
     public async GetAll(): Promise<ElevatorDto[]> {
         try {
             const resp = await axios.get(`${this.baseUrl}/elevators`);
             let elevators: ElevatorDto[] = await Promise.all(resp.data.map(async (d) => {
                 try {
-                    const item = await this.ToDto(d);
+                    const item = await ElevatorRepository.ToDto(d);
                     return item;
                 } catch (err) {
                     throw err;
@@ -28,7 +35,7 @@ export class ElevatorRepository extends BaseRepository {
     public async Get(id: number): Promise<ElevatorDto> {
         try {
             const resp = await axios.get(`${this.baseUrl}/elevators/${id}`);
-            return await this.ToDto(resp.data) as ElevatorDto;
+            return await ElevatorRepository.ToDto(resp.data) as ElevatorDto;
         } catch (err) {
             return err;
         }
@@ -63,14 +70,14 @@ export class ElevatorRepository extends BaseRepository {
         }
     }
 
-    private async ToDto(elevator: Elevator): Promise<ElevatorDto> {
-        return {
-            id: elevator.id,
-            status: Status[elevator.status],
-            currentFloor: elevator.currentFloor,
-            availableFloors: elevator.availableFloors,
-            building: await this.buildingRepo.Get(elevator.buildingId),
-            doorState: DoorState[elevator.doorState]
-        };
+    public static async ToDto(elevator: Elevator, includeBuildings: boolean = true): Promise<ElevatorDto> {
+        const dto = new ElevatorDto();
+        dto.id = elevator.id;
+        dto.status = Status[elevator.status];
+        dto.currentFloor = elevator.currentFloor;
+        dto.availableFloors = elevator.availableFloors;
+        dto.doorState = DoorState[elevator.doorState];
+        if (includeBuildings) dto.building = await this.getInstance().buildingRepo.Get(elevator.buildingId, false);
+        return dto;
     }
 }
