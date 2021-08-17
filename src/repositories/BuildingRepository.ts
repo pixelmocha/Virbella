@@ -17,12 +17,6 @@ export class BuildingRepository extends BaseRepository {
     public async GetAll(): Promise<BuildingDto[]> {
         try {
             const resp = await axios.get(`${this.baseUrl}/buildings`);
-            // const buildings: Building[] = resp.data;
-            // buildings.forEach(async (b: Building) => {
-            //     b.elevators = await this.GetElevators(b.id);
-            // });
-
-
             let buildings: BuildingDto[] = await Promise.all(resp.data.map(async (d) => {
                 try {
                     const item = await BuildingRepository.ToDto(d);
