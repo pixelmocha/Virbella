@@ -14,7 +14,7 @@ export class ElevatorController {
    * @memberof ElevatorController
    */
   @Get('/elevators')
-  async GetAll(): Promise<Elevator[]> {
+  async GetAll(): Promise<ElevatorDto[]> {
     return await this.repo.GetAll();
   }
 

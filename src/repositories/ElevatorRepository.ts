@@ -8,10 +8,18 @@ import { BuildingRepository } from "./BuildingRepository";
 export class ElevatorRepository extends BaseRepository {
     private buildingRepo = new BuildingRepository();
 
-    public async GetAll(): Promise<Elevator[]> {
+    public async GetAll(): Promise<ElevatorDto[]> {
         try {
             const resp = await axios.get(`${this.baseUrl}/elevators`);
-            return resp.data as Elevator[];
+            let elevators: ElevatorDto[] = await Promise.all(resp.data.map(async (d) => {
+                try {
+                    const item = await this.ToDto(d);
+                    return item;
+                } catch (err) {
+                    throw err;
+                }
+            }));
+            return elevators;
         } catch (err) {
             return err;
         }
@@ -29,7 +37,7 @@ export class ElevatorRepository extends BaseRepository {
         }
     }
 
-    public async MoveToFloor(id: number, floorNumber: number) {
+    public async MoveToFloor(id: number, floorNumber: number): Promise<boolean> {
         try {
             const elevator = await this.Get(id);
             if (floorNumber > elevator.availableFloors) {
@@ -59,6 +67,14 @@ export class ElevatorRepository extends BaseRepository {
     }
 
     private async ToDto(elevator: Elevator): Promise<ElevatorDto> {
+        // console.log({
+        //     id: elevator.id,
+        //     status: Status[elevator.status],
+        //     currentFloor: elevator.currentFloor,
+        //     availableFloors: elevator.availableFloors,
+        //     building: await this.buildingRepo.Get(elevator.buildingId),
+        //     doorState: DoorState[elevator.doorState]
+        // })
         return {
             id: elevator.id,
             status: Status[elevator.status],
