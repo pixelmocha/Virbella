@@ -19,9 +19,9 @@ export class ElevatorController {
   }
 
   /**
-   * Returns all elevators for all buildings
+   * Returns a single elevator
    *
-   * @returns array of Elevators
+   * @returns Elevator
    * @memberof ElevatorController
    */
   @Get('/elevators/:id')

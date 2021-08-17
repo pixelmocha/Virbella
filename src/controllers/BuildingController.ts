@@ -29,7 +29,7 @@ export class BuildingController {
   }
 
   /**
-   * Returns data, including elevators, of building
+   * Returns all the elevators of a given building
    *
    * @returns Building
    * @memberof BuildingController
