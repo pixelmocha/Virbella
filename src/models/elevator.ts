@@ -1,3 +1,5 @@
+import { ElevatorDto } from "../dto/elevator";
+
 export class Elevator {
     public id: number;
     public status: Status;

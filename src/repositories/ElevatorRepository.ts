@@ -1,9 +1,12 @@
 import axios from "axios";
 import { BadRequestError } from "routing-controllers";
-import { DoorState, Elevator } from "../models/elevator";
+import { ElevatorDto } from "../dto/elevator";
+import { DoorState, Elevator, Status } from "../models/elevator";
 import { BaseRepository } from "./BaseRepository";
+import { BuildingRepository } from "./BuildingRepository";
 
 export class ElevatorRepository extends BaseRepository {
+    private buildingRepo = new BuildingRepository();
 
     public async GetAll(): Promise<Elevator[]> {
         try {
@@ -14,10 +17,13 @@ export class ElevatorRepository extends BaseRepository {
         }
     }
 
-    public async Get(id: number): Promise<Elevator> {
+    public async Get(id: number): Promise<ElevatorDto> {
         try {
             const resp = await axios.get(`${this.baseUrl}/elevators/${id}`);
-            return resp.data as Elevator;
+            // if (param) {
+            //     if (resp.data[param]) return resp.data[param];
+            // }
+            return await this.ToDto(resp.data) as ElevatorDto;
         } catch (err) {
             return err;
         }
@@ -42,12 +48,24 @@ export class ElevatorRepository extends BaseRepository {
 
     public async SetDoorState(id: number, state: DoorState): Promise<boolean> {
         try {
-            const elevator = await this.Get(id);
+            const resp = await axios.get(`${this.baseUrl}/elevators/${id}`);
+            const elevator = resp.data;
             elevator.doorState = state;
             await axios.put(`${this.baseUrl}/elevators/${id}`, elevator);
             return true;
         } catch (err) {
             return err;
         }
+    }
+
+    private async ToDto(elevator: Elevator): Promise<ElevatorDto> {
+        return {
+            id: elevator.id,
+            status: Status[elevator.status],
+            currentFloor: elevator.currentFloor,
+            availableFloors: elevator.availableFloors,
+            building: await this.buildingRepo.Get(elevator.buildingId),
+            doorState: DoorState[elevator.doorState]
+        };
     }
 }

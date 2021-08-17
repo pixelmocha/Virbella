@@ -2,7 +2,6 @@ import axios from "axios";
 import { Building } from "../models/buildings";
 import { Elevator } from "../models/elevator";
 import { BaseRepository } from "./BaseRepository";
-import { ElevatorRepository } from "./ElevatorRepository";
 
 export class BuildingRepository extends BaseRepository {
 
@@ -22,9 +21,7 @@ export class BuildingRepository extends BaseRepository {
     public async Get(id: number): Promise<Building> {
         try {
             const resp = await axios.get(`${this.baseUrl}/buildings/${id}`);
-            const building: Building = resp.data;
-            building.elevators = await this.GetElevators(id);
-            return building;
+            return resp.data;
         } catch (err) {
             return err;
         }
