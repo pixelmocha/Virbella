@@ -1,0 +1,60 @@
+{
+  "name": "virbella",
+  "version": "1.0.0",
+  "description": "Elevator API",
+  "main": "dist/app.js",
+  "scripts": {
+    "db": "json-server --watch db/db.json --port 9001",
+    "start": "node --inspect=5858 -r ts-node/register ./src/app.ts",
+    "start:watch": "npm run db & nodemon",
+    "build": "tsc",
+    "test": "test"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm start",
+    "ext": "ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixelmocha/Virbella.git"
+  },
+  "author": "Nicolas Roy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pixelmocha/Virbella/issues"
+  },
+  "homepage": "https://github.com/pixelmocha/Virbella#readme",
+  "devDependencies": {
+    "@types/body-parser": "^1.19.1",
+    "@types/express": "^4.17.13",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^14.17.9",
+    "concurrently": "^6.2.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.24.0",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.0",
+    "tslint": "^5.12.1",
+    "typescript": "^3.9.10"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
+    "express": "^4.17.1",
+    "json-server": "^0.16.3",
+    "multer": "^1.4.3",
+    "reflect-metadata": "^0.1.13",
+    "routing-controllers": "^0.9.0"
+  }
+}

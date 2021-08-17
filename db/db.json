@@ -1,0 +1,35 @@
+{
+  "elevators": [
+    {
+      "id": 1,
+      "status": 1,
+      "currentFloor": 1,
+      "availableFloors": 2,
+      "buildingId": 1
+    },
+    {
+      "id": 2,
+      "status": 0,
+      "currentFloor": 4,
+      "availableFloors": 2,
+      "buildingId": 1
+    },
+    {
+      "id": 3,
+      "status": 1,
+      "currentFloor": 3,
+      "availableFloors": 2,
+      "buildingId": 2
+    }
+  ],
+  "buildings": [
+    {
+      "id": 1,
+      "name": "B of A"
+    },
+    {
+      "id": 2,
+      "name": "B of B"
+    }
+  ]
+}
