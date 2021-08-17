@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BadRequestError } from "routing-controllers";
-import { Elevator } from "../models/elevator";
+import { DoorState, Elevator } from "../models/elevator";
 import { BaseRepository } from "./BaseRepository";
 
 export class ElevatorRepository extends BaseRepository {
@@ -23,16 +23,7 @@ export class ElevatorRepository extends BaseRepository {
         }
     }
 
-    public async GetElevatorsForBuilding(buildingId: number): Promise<Elevator[]> {
-        try {
-            const resp = await axios.get(`${this.baseUrl}/elevators?buildingId=${buildingId}`);
-            return resp.data as Elevator[];
-        } catch (err) {
-            return err;
-        }
-    }
-
-    public async MoveElevator(id: number, floorNumber: number) {
+    public async MoveToFloor(id: number, floorNumber: number) {
         try {
             const elevator = await this.Get(id);
             if (floorNumber > elevator.availableFloors) {
@@ -42,6 +33,17 @@ export class ElevatorRepository extends BaseRepository {
                 return true;
             }
             elevator.currentFloor = floorNumber;
+            await axios.put(`${this.baseUrl}/elevators/${id}`, elevator);
+            return true;
+        } catch (err) {
+            return err;
+        }
+    }
+
+    public async SetDoorState(id: number, state: DoorState): Promise<boolean> {
+        try {
+            const elevator = await this.Get(id);
+            elevator.doorState = state;
             await axios.put(`${this.baseUrl}/elevators/${id}`, elevator);
             return true;
         } catch (err) {

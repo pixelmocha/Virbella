@@ -1,6 +1,6 @@
 import { Controller, Param, Body, Get, Post, Put, Delete } from 'routing-controllers';
 import { ElevatorRepository } from '../repositories/ElevatorRepository';
-import { Elevator } from '../models/elevator';
+import { DoorState, Elevator } from '../models/elevator';
 
 @Controller()
 export class ElevatorController {
@@ -18,34 +18,35 @@ export class ElevatorController {
   }
 
   /**
- * Returns all elevators for a given building id
- *
- * @returns array of Elevators
- * @memberof ElevatorController
- */
-  @Get('/elevators/building/:buildingId')
-  async GetElevatorsForBuilding(@Param('buildingId') buildingId: number): Promise<Elevator[]> {
-    return await this.repo.GetElevatorsForBuilding(buildingId);
-  }
-
-  /**
- * moves elevator 
+ * moves elevator to given floor if that floor exists
  *
  * @returns array of Elevators
  * @memberof ElevatorController
  */
   @Put('/elevators/:id/floor/:floorNumber')
-  async MoveElevator(@Param('id') id: number, @Param('floorNumber') floorNumber: number): Promise<boolean> {
-    return await this.repo.MoveElevator(id, floorNumber);
+  async MoveToFloor(@Param('id') id: number, @Param('floorNumber') floorNumber: number): Promise<boolean> {
+    return await this.repo.MoveToFloor(id, floorNumber);
   }
 
-  // @Post('/users')
-  // post(@Body() user: any) {
-  //   return 'Saving user...';
-  // }
+  /**
+* opens an elevator door
+*
+* @returns boolean indicating success
+* @memberof ElevatorController
+*/
+  @Put('/elevators/:id/open')
+  async Open(@Param('id') id: number): Promise<boolean> {
+    return await this.repo.SetDoorState(id, DoorState.Open);
+  }
 
-  // @Delete('/users/:id')
-  // remove(@Param('id') id: number) {
-  //   return 'Removing user...';
-  // }
+  /**
+ * closes an elevator door
+ *
+ * @returns boolean indicating success
+ * @memberof ElevatorController
+ */
+  @Put('/elevators/:id/close')
+  async Close(@Param('id') id: number): Promise<boolean> {
+    return await this.repo.SetDoorState(id, DoorState.Closed);
+  }
 }

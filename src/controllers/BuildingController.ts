@@ -1,4 +1,4 @@
-import { Controller, Param, Body, Get, Post, Put, Delete } from 'routing-controllers';
+import { Controller, Param, Get } from 'routing-controllers';
 import { Building } from '../models/buildings';
 import { BuildingRepository } from '../repositories/BuildingRepository';
 
@@ -24,7 +24,18 @@ export class BuildingController {
    * @memberof BuildingController
    */
   @Get('/buildings/:id')
-  async getOne(@Param('id') id: number) {
+  async GetOne(@Param('id') id: number) {
     return await this.repo.Get(id);
+  }
+
+  /**
+   * Returns data, including elevators, of building
+   *
+   * @returns Building
+   * @memberof BuildingController
+   */
+  @Get('/buildings/:id/elevators')
+  async GetElevators(@Param('id') id: number) {
+    return await this.repo.GetElevators(id);
   }
 }

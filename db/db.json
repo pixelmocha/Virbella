@@ -4,21 +4,21 @@
       "id": 1,
       "status": 1,
       "currentFloor": 1,
-      "availableFloors": 2,
+      "availableFloors": 10,
       "buildingId": 1
     },
     {
       "id": 2,
       "status": 0,
       "currentFloor": 4,
-      "availableFloors": 2,
+      "availableFloors": 12,
       "buildingId": 1
     },
     {
       "id": 3,
       "status": 1,
       "currentFloor": 3,
-      "availableFloors": 2,
+      "availableFloors": 3,
       "buildingId": 2
     }
   ],
