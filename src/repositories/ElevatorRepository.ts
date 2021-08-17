@@ -28,9 +28,6 @@ export class ElevatorRepository extends BaseRepository {
     public async Get(id: number): Promise<ElevatorDto> {
         try {
             const resp = await axios.get(`${this.baseUrl}/elevators/${id}`);
-            // if (param) {
-            //     if (resp.data[param]) return resp.data[param];
-            // }
             return await this.ToDto(resp.data) as ElevatorDto;
         } catch (err) {
             return err;
@@ -67,14 +64,6 @@ export class ElevatorRepository extends BaseRepository {
     }
 
     private async ToDto(elevator: Elevator): Promise<ElevatorDto> {
-        // console.log({
-        //     id: elevator.id,
-        //     status: Status[elevator.status],
-        //     currentFloor: elevator.currentFloor,
-        //     availableFloors: elevator.availableFloors,
-        //     building: await this.buildingRepo.Get(elevator.buildingId),
-        //     doorState: DoorState[elevator.doorState]
-        // })
         return {
             id: elevator.id,
             status: Status[elevator.status],
