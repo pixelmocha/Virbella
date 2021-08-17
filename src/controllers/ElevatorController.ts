@@ -1,6 +1,6 @@
 import { Controller, Param, Get, Put } from 'routing-controllers';
 import { ElevatorRepository } from '../repositories/ElevatorRepository';
-import { DoorState, Elevator } from '../models/elevator';
+import { DoorState } from '../models/elevator';
 import { ElevatorDto } from '../dto/elevator';
 
 @Controller()
