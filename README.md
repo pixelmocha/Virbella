@@ -1,6 +1,6 @@
 # Virbela
 
- Elevator API
+ Elevator API. Node 12 or above.
 
 ## Startup instructions
 
