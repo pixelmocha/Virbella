@@ -1,4 +1,4 @@
-# Virbella
+# Virbela
  Elevator API
 
 ## Startup instructions
