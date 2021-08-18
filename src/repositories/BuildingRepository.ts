@@ -1,4 +1,5 @@
 import axios from "axios";
+import { NotFoundError } from "routing-controllers";
 import { BuildingDto } from "../dto/buildingDto";
 import { ElevatorDto } from "../dto/elevatorDto";
 import { Building } from "../models/buildings";
@@ -57,10 +58,29 @@ export class BuildingRepository extends BaseRepository {
      */
     public async Get(id: number, includeElevators: boolean = true): Promise<BuildingDto> {
         try {
-            const resp = await axios.get(`${this.baseUrl}/buildings/${id}`);
-            return BuildingRepository.ToDto(resp.data, includeElevators);
+            const building = await this.GetBuildingData(id);
+            return BuildingRepository.ToDto(building, includeElevators);
         } catch (err) {
             return err;
+        }
+    }
+
+    /**
+     * gets a single building in raw data form for internal repo use. This
+     * is used ubiquitously, and serves as a first check as to the building's 
+     * existence
+     *
+     * @private
+     * @param {number} id
+     * @returns {Promise<Building>}
+     * @memberof BuildingRepository
+     */
+     private async GetBuildingData(id: number): Promise<Building> {
+        try {
+            const resp = await axios.get(`${this.baseUrl}/buildings/${id}`);
+            return resp.data;
+        } catch {
+            throw new NotFoundError('Building not found!');
         }
     }
 
