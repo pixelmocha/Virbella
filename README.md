@@ -11,7 +11,7 @@
 ## Questions
 
     How can your implementation be optimized?
-        - given time, I would have used Mongo with Mongoose to properly handle data mutaions and nesting data across tables (or joining). The json-server plugin is great, but it is no real database.
+        <p>- given time, I would have used Mongo with Mongoose to properly handle data mutaions and nesting data across tables (or joining). The json-server plugin is great, but it is no real database.</p>
 
     How much time did you spend on your implementation?
         - A total of 5 hours
