@@ -8,11 +8,11 @@ export class Elevator {
 }
 
 export enum Status {
-    OutOfService = 0,
-    Active = 1
+    "out of service" = 0,
+    "active" = 1
 }
 
 export enum DoorState {
-    Closed = 0,
-    Open = 1
+    closed = 0,
+    open = 1
 }

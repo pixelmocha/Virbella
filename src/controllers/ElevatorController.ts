@@ -48,7 +48,7 @@ export class ElevatorController {
 */
   @Put('/elevators/:id/open')
   async Open(@Param('id') id: number): Promise<boolean> {
-    return await this.repo.SetDoorState(id, DoorState.Open);
+    return await this.repo.SetDoorState(id, DoorState.open);
   }
 
   /**
@@ -59,6 +59,6 @@ export class ElevatorController {
  */
   @Put('/elevators/:id/close')
   async Close(@Param('id') id: number): Promise<boolean> {
-    return await this.repo.SetDoorState(id, DoorState.Closed);
+    return await this.repo.SetDoorState(id, DoorState.closed);
   }
 }
