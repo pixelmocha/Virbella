@@ -97,7 +97,7 @@ export class ElevatorRepository extends BaseRepository {
             if (floorNumber > elevator.availableFloors) {
                 throw new BadRequestError('Requested floor does not exist for this elevator');
             }
-            if (floorNumber === elevator.availableFloors) {
+            if (floorNumber === elevator.currentFloor) {
                 return true;
             }
             elevator.currentFloor = floorNumber;
