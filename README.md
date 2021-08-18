@@ -32,7 +32,7 @@ The super stretch goal was tempting. I would have held the requested floors in m
 
 ### How much time did you spend on your implementation?
 
-A total of about 5 hours
+A total of about 5 hours split up over 2 days
 
 
 ### What was most challenging for you?
