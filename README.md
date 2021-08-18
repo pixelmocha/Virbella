@@ -1,12 +1,21 @@
 # Virbela
 
- Elevator API. Node 12 or above.
+Elevator API. Node 12 or above. This API allows you to:
+1. get all elevator data, including building data (ex: http://localhost:3000/elevators)
+2. get single elevator data, including building data (ex: http://localhost:3000/elevators/1)
+3. get all elevator data for a building (ex: http://localhost:3000/buildings/1/elevators)
+4. get all building data, including elevators (ex: http://localhost:3000/buildings)
+5. get single building data, including elevators (ex: http://localhost:3000/buildings/1)
+6. open an elevator door (ex: http://localhost:3000/elevators/1/open)
+7. close an elevator door (ex: http://localhost:3000/elevators/1/close)
+8. move an elevator (ex: http://localhost:3000/elevators/1/floor/2)
 
 ## Startup instructions
 
-    1. clone the repository
-    2. npm install
-    3. npm run start:watch (this starts the mock database service and the app)
+1. clone the repository
+2. npm install
+3. npm run start:watch (this starts the mock database service and the app)
+4. go to localhost:3000
 
 ## Questions
 
