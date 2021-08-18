@@ -30,7 +30,7 @@ export class ElevatorRepository extends BaseRepository {
         try {
             const resp = await axios.get(`${this.baseUrl}/elevators`);
 
-            // using Promise.all all to run these mappings to dto to allow us to run the promises
+            // using Promise.all all to allow us to run the ToDto promises
             // in parallel rather than in series. This mapping would probably be better
             // done using a proper ORM. This is quite rudimentary.
             let elevators: ElevatorDto[] = await Promise.all(resp.data.map(async (d) => {

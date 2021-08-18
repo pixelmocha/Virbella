@@ -30,7 +30,7 @@ export class BuildingRepository extends BaseRepository {
         try {
             const resp = await axios.get(`${this.baseUrl}/buildings`);
 
-            // using Promise.all all to run these mappings to dto to allow us to run the promises
+            // using Promise.all all to allow us to run the ToDto promises
             // in parallel rather than in series. This mapping would probably be better
             // done using a proper ORM. This is quite rudimentary.
             let buildings: BuildingDto[] = await Promise.all(resp.data.map(async (d) => {
