@@ -6,6 +6,11 @@ import { BaseRepository } from "./BaseRepository";
 import { BuildingRepository } from "./BuildingRepository";
 
 export class ElevatorRepository extends BaseRepository {
+
+    // singleton pattern for the instance allows 
+    // resuse of the same repo instance and can, in some cases,
+    // prevent stack errors resulting from mutual depence 
+    // of 2 repos. See BaseRepository for more details.
     private buildingRepo = new BuildingRepository;
     private static instance: ElevatorRepository;
     public static getInstance(): ElevatorRepository {
@@ -15,9 +20,19 @@ export class ElevatorRepository extends BaseRepository {
         return ElevatorRepository.instance;
     }
 
+    /**
+     * returns all stored elevators in dto form
+     *
+     * @returns {Promise<ElevatorDto[]>}
+     * @memberof ElevatorRepository
+     */
     public async GetAll(): Promise<ElevatorDto[]> {
         try {
             const resp = await axios.get(`${this.baseUrl}/elevators`);
+
+            // using Promise.all all to run these mappings to dto to allow us to run the promises
+            // in parallel rather than in series. This mapping would probably be better
+            // done using a proper ORM. This is quite rudimentary.
             let elevators: ElevatorDto[] = await Promise.all(resp.data.map(async (d) => {
                 try {
                     const item = await ElevatorRepository.ToDto(d);
@@ -32,6 +47,13 @@ export class ElevatorRepository extends BaseRepository {
         }
     }
 
+    /**
+     * gets a single elevator in dto form
+     *
+     * @param {number} id
+     * @returns {Promise<ElevatorDto>}
+     * @memberof ElevatorRepository
+     */
     public async Get(id: number): Promise<ElevatorDto> {
         try {
             const elevator = await this.GetElevatorData(id);
@@ -41,6 +63,16 @@ export class ElevatorRepository extends BaseRepository {
         }
     }
 
+    /**
+     * gets a single elevator in raw data form for internal repo use. This
+     * is used ubiquitously, and serves as a first check as to the elevator's 
+     * existence
+     *
+     * @private
+     * @param {number} id
+     * @returns {Promise<Elevator>}
+     * @memberof ElevatorRepository
+     */
     private async GetElevatorData(id: number): Promise<Elevator> {
         try {
             const resp = await axios.get(`${this.baseUrl}/elevators/${id}`);
@@ -53,6 +85,15 @@ export class ElevatorRepository extends BaseRepository {
         }
     }
 
+    /**
+     * moves an elevator to a new floor. First checks if the floor exists; does nothing
+     * if the elevator is already there.
+     *
+     * @param {number} id
+     * @param {number} floorNumber
+     * @returns {Promise<boolean>}
+     * @memberof ElevatorRepository
+     */
     public async MoveToFloor(id: number, floorNumber: number): Promise<boolean> {
         try {
             const elevator = await this.GetElevatorData(id);
@@ -70,6 +111,14 @@ export class ElevatorRepository extends BaseRepository {
         }
     }
 
+    /**
+     * opens and closes the elevator door by changing its door state
+     *
+     * @param {number} id
+     * @param {DoorState} state
+     * @returns {Promise<boolean>}
+     * @memberof ElevatorRepository
+     */
     public async SetDoorState(id: number, state: DoorState): Promise<boolean> {
         try {
             const elevator = await this.GetElevatorData(id);
@@ -81,6 +130,19 @@ export class ElevatorRepository extends BaseRepository {
         }
     }
 
+    /**
+     * This method allows the easy conversion of a raw data structure to a readable 
+     * data transfer object. Fields like status and door state can be translated to 
+     * human readable strings like "open" or "active". This could have been placed 
+     * in the model itself, but some of the data, like the nested building object, need
+     * to be queried from the database, and data queries do ont belong in a model method.
+     *
+     * @static
+     * @param {Elevator} elevator
+     * @param {boolean} [includeBuildings=true]
+     * @returns {Promise<ElevatorDto>}
+     * @memberof ElevatorRepository
+     */
     public static async ToDto(elevator: Elevator, includeBuildings: boolean = true): Promise<ElevatorDto> {
         const dto = new ElevatorDto();
         dto.id = elevator.id;
