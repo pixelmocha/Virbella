@@ -1,12 +1,15 @@
 # Virbela
+
  Elevator API
 
 ## Startup instructions
+
     1. clone the repository
     2. npm install
     3. npm run start:watch (this starts the mock database service and the app)
 
 ## Questions
+
     How can your implementation be optimized?
         - given time, I would have used Mongo with Mongoose to properly handle data mutaions and nesting data across tables (or joining). The json-server plugin is great, but it is no real database.
 
