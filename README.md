@@ -2,6 +2,6 @@
  Elevator API
 
 ## Startup instructions
-    - clone the repository
-    - npm install
-    - npm start (this starts the mock database service and the app)
+    1. clone the repository
+    2. npm install
+    3. npm start (this starts the mock database service and the app)
