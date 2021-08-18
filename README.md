@@ -10,6 +10,8 @@ Elevator API. Node 12 or above. This API allows you to:
 7. close an elevator door (ex: http://localhost:3000/elevators/1/close)
 8. move an elevator (ex: http://localhost:3000/elevators/1/floor/2)
 
+The mock database resides in db/db.json. You can add/remove buildings an elevators at will.
+
 ## Startup instructions
 
 1. clone the repository
