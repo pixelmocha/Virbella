@@ -112,7 +112,8 @@ export class ElevatorRepository extends BaseRepository {
     }
 
     /**
-     * opens and closes the elevator door by changing its door state
+     * opens and closes the elevator door by changing its door state. A proper
+     * ORM like Mongoose would make this a bit more elegant.
      *
      * @param {number} id
      * @param {DoorState} state
