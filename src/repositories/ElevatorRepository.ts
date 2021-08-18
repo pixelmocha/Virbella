@@ -76,12 +76,9 @@ export class ElevatorRepository extends BaseRepository {
     private async GetElevatorData(id: number): Promise<Elevator> {
         try {
             const resp = await axios.get(`${this.baseUrl}/elevators/${id}`);
-            if (!resp.data) {
-                throw new NotFoundError('Elevator not found!');
-            }
             return resp.data;
-        } catch (err) {
-            return err;
+        } catch {
+            throw new NotFoundError('Elevator not found!');
         }
     }
 
