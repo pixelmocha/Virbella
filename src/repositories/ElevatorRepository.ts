@@ -9,7 +9,7 @@ export class ElevatorRepository extends BaseRepository {
 
     // singleton pattern for the instance allows 
     // resuse of the same repo instance and can, in some cases,
-    // prevent stack errors resulting from mutual depence 
+    // prevent stack errors resulting from mutual dependence 
     // of 2 repos. See BaseRepository for more details.
     private buildingRepo = new BuildingRepository;
     private static instance: ElevatorRepository;
