@@ -3,10 +3,10 @@
     {
       "id": 1,
       "status": 1,
-      "currentFloor": 1,
+      "currentFloor": 9,
       "availableFloors": 10,
       "buildingId": 1,
-      "doorState": 0
+      "doorState": 1
     },
     {
       "id": 2,
