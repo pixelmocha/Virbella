@@ -12,7 +12,7 @@
 
 ### How can your implementation be optimized?
 
-Spelling the name right on the Git repo would be a first. Given time, I would have used Mongo with Mongoose to properly handle data mutaions and nesting data across tables (or joining). The json-server plugin is great, but it is no real database.
+Spelling the name right on the Git repo would be a first. Given time, I would have used Mongo with Mongoose to properly handle data mutations and nesting data across tables (or joining). The json-server plugin is great, but it is no real database.
 
 
 ### How much time did you spend on your implementation?
