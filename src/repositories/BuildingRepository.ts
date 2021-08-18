@@ -92,7 +92,7 @@ export class BuildingRepository extends BaseRepository {
      * This method allows the easy conversion of a raw data structure to a readable 
      * data transfer object. This could have been placed 
      * in the model itself, but some of the data, like the nested elevators object, need
-     * to be queried from the database, and data queries do ont belong in a model method.
+     * to be queried from the database, and data queries do not belong in a model method.
      *
      * @static
      * @param {Building} building

@@ -136,7 +136,7 @@ export class ElevatorRepository extends BaseRepository {
      * data transfer object. Fields like status and door state can be translated to 
      * human readable strings like "open" or "active". This could have been placed 
      * in the model itself, but some of the data, like the nested building object, need
-     * to be queried from the database, and data queries do ont belong in a model method.
+     * to be queried from the database, and data queries do not belong in a model method.
      *
      * @static
      * @param {Elevator} elevator
