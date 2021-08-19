@@ -23,7 +23,7 @@ The mock database resides in db/db.json. You can add/remove buildings and elevat
 
 ### How can your implementation be optimized?
 
-Spelling the name right on the Git repo would be a first thing. Given time, I would have used Mongo with Mongoose to properly handle data mutations and nesting data across tables (or joining). The json-server plugin is great, but it is no real database.
+Spelling the name right on the Git repo would be a first thing. Not every edge case is covered. Given time, I would have used Mongo with Mongoose to properly handle data mutations and nesting data across tables (or joining). The json-server plugin is great, but it is no real database.
 
 I wanted to make an endpoint where you could select the specific field of data you wanted on the elevator, like current floor, or state. Right now, there is only an endpoint that returns all the data for a given elevator.
 
