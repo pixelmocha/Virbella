@@ -1,7 +1,7 @@
 # Virbela
 
 Elevator API. Node 12 or above. This API allows you to:
-1. get all elevator data, including building data (ex: <a target="_blank">http://localhost:3000/elevators</a>)
+1. get all elevator data, including building data (ex: http://localhost:3000/elevators)
 2. get single elevator data, including building data (ex: http://localhost:3000/elevators/1)
 3. get all elevator data for a building (ex: http://localhost:3000/buildings/1/elevators)
 4. get all building data, including elevators (ex: http://localhost:3000/buildings)
